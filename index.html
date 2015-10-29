@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Intruderpayloads by 1N3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Intruderpayloads</h1>
+      <h2 class="project-tagline">Collection of personal Burpsuite Intruder payloads and fuzz lists</h2>
+      <a href="https://github.com/1N3/IntruderPayloads" class="btn">View on GitHub</a>
+      <a href="https://github.com/1N3/IntruderPayloads/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/1N3/IntruderPayloads/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="intruderpayloads" class="anchor" href="#intruderpayloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>IntruderPayloads</h1>
+
+<h2>
+<a id="collection-of-personal-burpsuite-intruder-payloads-and-fuzz-lists" class="anchor" href="#collection-of-personal-burpsuite-intruder-payloads-and-fuzz-lists" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collection of personal Burpsuite Intruder payloads and fuzz lists</h2>
+
+<h3>
+<a id="injectx-to-find-xss" class="anchor" href="#injectx-to-find-xss" aria-hidden="true"><span class="octicon octicon-link"></span></a>InjectX to Find XSS</h3>
+
+<p>Author: 1N3 @ CrowdShield
+Website: <a href="https://crowdshield.com">https://crowdshield.com</a>
+Date: 10/29/2015</p>
+
+<h3>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h3>
+
+<p>In this tutorial, I will cover a simple technique to identify reflected values in a target web application and easily locate potential XSS vectors. This is accomplished by injecting unique heuristic values automatically via Burpsuite Intruder and using search strings to easily locate reflected values. In order to use this technique, you’ll need Burpsuite along with the custom grep strings and fuzz lists provided in this tutorial to get started. For more advanced tricks covered at the end of this tutorial, you’ll also need Apache and Beef (Browser Exploitation Framework).</p>
+
+<h3>
+<a id="why-is-this-helpful-to-me" class="anchor" href="#why-is-this-helpful-to-me" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why is this helpful to me?</h3>
+
+<p>Using this technique allows you to do the following:</p>
+
+<ul>
+<li>Find reflected values quickly</li>
+<li>Find the location of all reflected values in the response</li>
+<li>Receive XSS confirmation via heuristic testing and unique strings</li>
+<li>Exploit XSS vectors with certainty</li>
+</ul>
+
+<h3>
+<a id="great-how-do-i-do-it" class="anchor" href="#great-how-do-i-do-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Great! How do I do it?</h3>
+
+<ol>
+<li>Download the Burp attack configuration or manual fuzz and grep strings <a href="https://github.com/1N3/IntruderPayloads/">here</a>
+</li>
+<li>Load the attack configuration or manual payload lists from the Burp Intruder menu</li>
+<li>Copy/paste the request to the Intruder screen and add injection points
+NOTE: You’ll need to copy/paste the hostname into the “Host” tab of the Intruder configuration for this to work. </li>
+<li>Run the attack and analyze the results</li>
+<li>If XSS is possible, proceed to “real” XSS exploitation</li>
+</ol>
+
+<h3>
+<a id="workflow" class="anchor" href="#workflow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Workflow:</h3>
+
+<ol>
+<li>Is the injection point reflected in the response? If yes, goto step 2.</li>
+<li>If reflected in the response, where in the response is it reflected? Search for “INJECTX” to find all injection points. Go to step 3.</li>
+<li>Once reflected injection points are found, which characters are being sanitized? Again, search for “INJECTX” in the response and look for the heuristic test characters to see which are still untampered. At a minimum, we’ll need “‘&gt;&lt;/(). To make this easier, you can create searchable columns in Burpsuite and specify “INJECTX”, “” and “(INJECTX)” as your grep strings. If these characters or search strings are found, then XSS is possible. Proceed to step 4.</li>
+<li>If XSS is possible, inject our “real” XSS payloads either through manual browser attempts, Burp Intruder or Repeater to exploit the XSS vector.</li>
+</ol>
+
+<p>Remote confirmation via Apache logs can help to keep track of blind XSS injection points and will also list the referring page the XSS loaded along with the source IP. Since we control the iframe_injection.php page, we can inject whatever HTML/JS code we want. </p>
+
+<p>In this case, it loads a Beef (Browser Exploitation Framework) hook.js which can be used to launch more advanced XSS/client side attacks.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/1N3/IntruderPayloads">Intruderpayloads</a> is maintained by <a href="https://github.com/1N3">1N3</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
